@@ -1,0 +1,71 @@
+classes: 
+
+	public class Database{
+	
+		-dataFile: String
+		-data: List<Datum>
+		-dataStates: SortedSet<String>
+		-dataCountries: SortedSet<String>
+		-dataYears: SortedSet<Integer>
+	}
+	
+	public class Datum{
+	
+		-raw: List<Object>
+		-state: String
+		-country: String
+		-year: Integer
+		
+	}	
+	
+	public class DataViewer{
+	
+		-selectedCountry: String
+		-selectedEndYear: Integer
+		-selectedState: String
+		-selectedStartYear: Integer
+		-selectedVisualization: String
+	}
+	
+	public class Plot{
+	
+		-plotData: TreeMap<Integer, SortedMap<Integer,Double>>
+		-plotMonthlyMaxValue: TreeMap<Integer,Double>
+		-plotMonthlyMinValue: TreeMap<Integer,Double>
+	}	
+		
+	public abstract class UI implements DrawListener{
+		
+		-window: Draw
+		
+		+keyPressed(int key): void
+		+keyReleased(int key): void
+		+keyTyped(char key): void
+		+mouseClicked(double x,double y): void
+		+mouseDragged(double x,double y): void
+		+mousePressed(double x,double y): void
+		+mouseReleased(double x,double y): void
+		
+	}
+	
+	public class DataViewerUI extends UI{
+	
+		-window: Draw
+		-guiMode: int
+		
+	}
+	
+	public class Main{
+	
+		-dv: DataViewer
+		-ui: DataViewerUI
+		
+	}
+	
+design pattern ideas:
+	
+	state pattern for guiModes
+	observer pattern to separate data from GUI
+	singleton pattern for guiModes states
+	visitor pattern for processing database
+	
