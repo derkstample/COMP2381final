@@ -223,7 +223,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 				Object selectedValue = JOptionPane.showInputDialog(null,
 			             "Choose a Country", "Input",
 			             JOptionPane.INFORMATION_MESSAGE, null,
-			             m_dataCountries.toArray(), m_selectedCountry);
+			             dv.database.getCountries(), m_selectedCountry);
 				
 				if(selectedValue != null) {
 					dv.debugger.info("User selected: '%s'", selectedValue);
@@ -249,7 +249,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 				Object selectedValue = JOptionPane.showInputDialog(null,
 			             "Choose a State", "Input",
 			             JOptionPane.INFORMATION_MESSAGE, null,
-			             m_dataStates.toArray(), m_selectedState);
+			             dv.database.getCountry(m_selectedCountry).getStates(), m_selectedState);
 				
 				if(selectedValue != null) {
 					dv.debugger.info("User selected: '%s'", selectedValue);
@@ -266,7 +266,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 				Object selectedValue = JOptionPane.showInputDialog(null,
 			             "Choose the start year", "Input",
 			             JOptionPane.INFORMATION_MESSAGE, null,
-			             m_dataYears.toArray(), m_selectedStartYear);
+			             dv.database.getCountry(m_selectedCountry).getState(m_selectedState).getYears(), m_selectedStartYear);
 				
 				if(selectedValue != null) {
 					dv.debugger.info("User seleted: '%s'", selectedValue);
@@ -288,7 +288,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 				Object selectedValue = JOptionPane.showInputDialog(null,
 			             "Choose the end year", "Input",
 			             JOptionPane.INFORMATION_MESSAGE, null,
-			             m_dataYears.toArray(), m_selectedEndYear);
+			             dv.database.getCountry(m_selectedCountry).getState(m_selectedState).getYears(), m_selectedEndYear);
 				
 				if(selectedValue != null) {
 					dv.debugger.info("User seleted: '%s'", selectedValue);
@@ -334,7 +334,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 		}
 		if(needsUpdatePlotData) {
 			// something changed with the data that needs to be plotted
-			dv.updatePlotData();
+			dv.plotter.updatePlotData(m_selectedState, m_selectedStartYear, m_selectedEndYear);
 		}
 		if(needsUpdate) {
 			update();
