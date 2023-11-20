@@ -1,4 +1,4 @@
-package dataviewer1orig;
+package dataviewer2split;
 
 import java.awt.Color;
 import java.io.FileNotFoundException;
@@ -223,7 +223,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 				Object selectedValue = JOptionPane.showInputDialog(null,
 			             "Choose a Country", "Input",
 			             JOptionPane.INFORMATION_MESSAGE, null,
-			             dv.database.getCountries(), m_selectedCountry);
+			             m_dataCountries.toArray(), m_selectedCountry);
 				
 				if(selectedValue != null) {
 					dv.debugger.info("User selected: '%s'", selectedValue);
@@ -249,7 +249,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 				Object selectedValue = JOptionPane.showInputDialog(null,
 			             "Choose a State", "Input",
 			             JOptionPane.INFORMATION_MESSAGE, null,
-			             dv.database.getCountry(m_selectedCountry).getStates(), m_selectedState);
+			             m_dataStates.toArray(), m_selectedState);
 				
 				if(selectedValue != null) {
 					dv.debugger.info("User selected: '%s'", selectedValue);
@@ -266,7 +266,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 				Object selectedValue = JOptionPane.showInputDialog(null,
 			             "Choose the start year", "Input",
 			             JOptionPane.INFORMATION_MESSAGE, null,
-			             dv.database.getCountry(m_selectedCountry).getState(m_selectedState).getYears(), m_selectedStartYear);
+			             m_dataYears.toArray(), m_selectedStartYear);
 				
 				if(selectedValue != null) {
 					dv.debugger.info("User seleted: '%s'", selectedValue);
@@ -288,7 +288,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 				Object selectedValue = JOptionPane.showInputDialog(null,
 			             "Choose the end year", "Input",
 			             JOptionPane.INFORMATION_MESSAGE, null,
-			             dv.database.getCountry(m_selectedCountry).getState(m_selectedState).getYears(), m_selectedEndYear);
+			             m_dataYears.toArray(), m_selectedEndYear);
 				
 				if(selectedValue != null) {
 					dv.debugger.info("User seleted: '%s'", selectedValue);
@@ -334,7 +334,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 		}
 		if(needsUpdatePlotData) {
 			// something changed with the data that needs to be plotted
-			dv.plotter.updatePlotData(m_selectedState, m_selectedStartYear, m_selectedEndYear);
+			dv.updatePlotData();
 		}
 		if(needsUpdate) {
 			update();
