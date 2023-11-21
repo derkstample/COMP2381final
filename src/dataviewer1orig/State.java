@@ -11,13 +11,16 @@ public class State implements DataStructure{
 	}
 	public void addDataStructure(String name, DataStructure ds) throws IllegalDataStructureException {
 		if(!(ds instanceof Year)) throw new IllegalDataStructureException("States must have Years as substructures");
-		years.put(name,(Year)ds);
+		getYears().put(name,(Year)ds);
 	}
 	public DataStructure getDataStructure(String name) throws DataStructureNotFoundException {
-		if(!years.containsKey(name)) throw new DataStructureNotFoundException("Year not found in the database");
-		return years.get(name);
+		if(!getYears().containsKey(name)) throw new DataStructureNotFoundException("Year not found in the database");
+		return getYears().get(name);
 	}
 	public void removeDataStructure(String name) {
-		years.remove(name);
+		getYears().remove(name);
+	}
+	public Map<String,Year> getYears() {
+		return years;
 	}
 }

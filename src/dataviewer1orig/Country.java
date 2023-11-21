@@ -11,13 +11,16 @@ public class Country implements DataStructure {
 	}
 	public void addDataStructure(String name,DataStructure ds) throws IllegalDataStructureException {
 		if(!(ds instanceof State)) throw new IllegalDataStructureException("Countries must have States as substructures");
-		states.put(name,(State)ds);
+		getStates().put(name,(State)ds);
 	}
 	public DataStructure getDataStructure(String name) throws DataStructureNotFoundException {
-		if(!states.containsKey(name)) throw new DataStructureNotFoundException("State not found in the database");
-		return states.get(name);
+		if(!getStates().containsKey(name)) throw new DataStructureNotFoundException("State not found in this country");
+		return getStates().get(name);
 	}
 	public void removeDataStructure(String name) {
-		states.remove(name);
+		getStates().remove(name);
+	}
+	public Map<String,State> getStates() {
+		return states;
 	}
 }

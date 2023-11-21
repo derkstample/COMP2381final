@@ -1,14 +1,14 @@
 package dataviewer2split;
 
 public class Datum implements DataStructure{
-	private double temperature;
+	private double value;
 	private double uncertainty;
 	public Datum(double temperature, Double uncertainty) {
-		this.temperature = temperature;
+		this.value = temperature;
 		this.uncertainty = uncertainty;
 	}
 	public double getTemperature() {
-		return temperature;
+		return value;
 	}
 	public double getUncertainty() {
 		return uncertainty;
@@ -23,4 +23,7 @@ public class Datum implements DataStructure{
 		//do nothing, no structures to remove
 	}
 	//now you may be asking yourself, "why is Datum implementing DataStructure if literally all of the implemented methods are unused?" and to that I have a great answer, its because Year will throw a fit trying to get a Datum if it isn't a DataStructure
+	public String toString() {
+		return "value: "+value+", uncertainty: "+uncertainty;
+	}
 }
