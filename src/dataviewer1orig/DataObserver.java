@@ -1,4 +1,4 @@
-package dataviewer1orig;
+package dataviewer2split;
 
 import edu.du.dudraw.Draw;
 

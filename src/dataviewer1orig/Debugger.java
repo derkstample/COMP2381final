@@ -1,4 +1,4 @@
-package dataviewer1orig;
+package dataviewer2split;
 
 public class Debugger {
 
@@ -9,7 +9,6 @@ public class Debugger {
     }
 
     private boolean debuggingEnabled = true;
-    
     public boolean isDebuggingEnabled() {
         return debuggingEnabled;
         }
