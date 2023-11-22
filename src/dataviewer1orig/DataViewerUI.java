@@ -62,6 +62,9 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 	}
     
     private void drawData() {
+    	
+    	DataVisitor visitor;
+    	
     	final double DATA_WINDOW_BORDER = 50.0;
     	final String[] MONTH_NAMES = { "", // 1-based
     			"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
@@ -116,24 +119,16 @@ public class DataViewerUI extends DataObserver implements DrawListener {
         			double x = (month-1.0)*cellWidth + 0.5 * cellWidth;
         			double y = (year-m_selectedStartYear)*cellHeight + 0.5 * cellHeight;
         			
-        			Color cellColor = null;
+        	    	if (extremaVisualization) {
+        	    		visitor = new ExtremaDataVisitor(dv, extremaMinBound, extremaMaxBound);
+        	    	}
+        	    	
+        	    	else {
+        	    		visitor = new RawDataVisitor(dv);
+        	    	}
         			
-        			// get either color or grayscale depending on visualization mode
-        			if(extremaVisualization && value > extremaMinBound && value < extremaMaxBound) {
-        				cellColor = getDataColor(value, true);
-        			}
-        			else if(extremaVisualization) {
-        				// doing extrema visualization, show "high" values in red "low" values in blue.
-        				if(value >= extremaMaxBound) {
-        					cellColor = Color.RED;
-        				}
-        				else {
-        					cellColor = Color.BLUE;
-        				}
-        			}
-        			else {
-        				cellColor = getDataColor(value, false);
-        			}
+        			Color cellColor = visitor.getDatumColor(value);
+    
         			
         			// draw the rectangle for this data point
         			window.setPenColor(cellColor);
@@ -231,7 +226,7 @@ public class DataViewerUI extends DataObserver implements DrawListener {
 						// change in data
 						m_selectedCountry = (String)selectedValue;
 						try {
-							dv.loadData();
+							dv.database.loadData();
 						}
 						catch(FileNotFoundException e) {
 							// convert to a runtime exception since
